@@ -4,6 +4,11 @@ require_once 'app/includes/init.php';
 $msg = "";
 $detail = [];
 
+if (!$user->isLoggedIn()) {
+    header('Location: login.php');
+    exit();
+}
+
 if (isset($_GET["id"])) {
     $bukuid = $_GET["id"];
     $detail = $buku->find("id", $bukuid);

@@ -2,6 +2,11 @@
 
 require_once 'app/includes/init.php';
 
+if (!$user->isLoggedIn() && !$user->isAdmin()) {
+    header('Location: ../');
+    exit();
+}
+
 if (isset($_GET['type'])) {
     $type = $_GET['type'];
     if ($type == "tambah") {
