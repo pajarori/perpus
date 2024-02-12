@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 12 Feb 2024 pada 01.04
+-- Waktu pembuatan: 12 Feb 2024 pada 01.31
 -- Versi server: 8.0.30
 -- Versi PHP: 8.1.10
 
@@ -48,6 +48,51 @@ CREATE TABLE `buku` (
 INSERT INTO `buku` (`id`, `judul`, `gambar`, `deskripsi`, `pengarang`, `penerbit`, `tahun_terbit`, `isbn`, `jumlah_buku`, `lokasi`, `updated`) VALUES
 (3, 'Me & Mr. Old', '65b6ae9c5c03e.jpg', 'Terkadang, segala hal berjalan di luar dugaan. Aku tak pernah merencanakan jatuh cinta kepadamu, sama seperti kau tak pernah mengira aku bisa meluluhkan pertahananmu. Jika boleh, meski tak akan mudah, aku ingin selalu bersamamu.', 'PIPIT CHIE', 'Gagas Media', '2019', '9789797809430', 1, 'Loker Romance, Rak 1', '2024-01-28 21:16:14');
 
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pinjaman`
+--
+
+CREATE TABLE `pinjaman` (
+  `id` int NOT NULL,
+  `id_buku` int NOT NULL,
+  `id_user` int NOT NULL,
+  `tanggal_pinjam` date NOT NULL,
+  `tanggal_kembali` date DEFAULT NULL,
+  `status` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data untuk tabel `pinjaman`
+--
+
+INSERT INTO `pinjaman` (`id`, `id_buku`, `id_user`, `tanggal_pinjam`, `tanggal_kembali`, `status`) VALUES
+(8, 3, 7, '2024-02-12', NULL, 'dipinjam');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `users`
+--
+
+CREATE TABLE `users` (
+  `id` int NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `level` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data untuk tabel `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `nama`, `level`) VALUES
+(2, 'admin', '$2y$10$OguJI.FTCG2zfujo0OhOAeCtbn0R8lf6bTjxb4hNdMe8e50QGfZ1e', 'Administrator', 'administrator'),
+(6, 'petugas', '$2y$10$OguJI.FTCG2zfujo0OhOAeCtbn0R8lf6bTjxb4hNdMe8e50QGfZ1e', 'petugas', 'petugas'),
+(7, 'user', '$2y$10$u8WasYoZldvyxZ0jgFPdz.L/f/rat1a44Lku.jSvIQv18cpaE9NZm', 'user', 'peminjam');
+
 --
 -- Indexes for dumped tables
 --
@@ -59,6 +104,18 @@ ALTER TABLE `buku`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `pinjaman`
+--
+ALTER TABLE `pinjaman`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -67,6 +124,18 @@ ALTER TABLE `buku`
 --
 ALTER TABLE `buku`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `pinjaman`
+--
+ALTER TABLE `pinjaman`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT untuk tabel `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
